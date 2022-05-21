@@ -2,10 +2,26 @@ package com.devsuperior.dscatalog.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/*
+ * JPA - Java Persistence API. É a especificação padrão do Mapeamento objeto-relacional e persistência de dados.
+ *     Está dentro do pacote javax.persistence.*
+ *     
+ * Hibernate - É uma implementação de JPA.
+*/
+@Entity
+@Table(name = "tb_category")  //Anotação que define o nome da tabela no banco de dados
 public class Category implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	
@@ -14,7 +30,7 @@ public class Category implements Serializable{
 	}
 
 	public Category(Long id, String name) {
-		this.id = id;
+		this.id   = id;
 		this.name = name;
 	}
 
