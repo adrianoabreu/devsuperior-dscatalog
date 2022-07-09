@@ -57,7 +57,7 @@ public class UserService {
 		return new UserDTO(entity);
 	}
 
-	@Transactional
+	@Transactional     // A classe UserInsertDTO herdou a estrutura de UserDTO, ou seja, um UserInsertDTO é um UserDTO, porém trafegando o password.
 	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
 		copyDtoToEntity(dto,entity);
