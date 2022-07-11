@@ -7,5 +7,7 @@ import com.devsuperior.dscatalog.entities.User;
 
 @Repository //Com esta anotação, a injeção de independência desta classe passa a ser gerenciada pelo Spring.
 public interface UserRepository extends JpaRepository<User, Long>{
-
+	
+	User findByEmail(String email);
+	
 }
