@@ -1,8 +1,10 @@
 package com.devsuperior.dscatalog.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +17,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "tb_user")  //Anotação que define o nome da tabela no banco de dados
-public class User implements Serializable{
+public class User implements UserDetails, Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -114,6 +120,47 @@ public class User implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		return true;
+	}
+	
+	// Os metodos abaixo são de implementação obrigatória por causa da interface UserDetails do Spring Security.
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		//Este metodo percorre a lista de roles através de um metodo lambda para converter cada elemento role da lista para um GrantedAuthority.
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList());
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	// Metodo para verificar se a conta do usuário não está EXPIRADA. 
+	// Por padrão colocamos true para nunca estar expirada, caso contrário deverá ser implementada uma lógica para verificar se a conta está expirada.
+	@Override
+	public boolean isAccountNonExpired() {
+		return true; 
+	}
+
+	// Metodo para verificar se a conta do usuário não está BLOQUEADA. 
+	// Por padrão colocamos true para nunca estar bloqueada, caso contrário deverá ser implementada uma lógica para verificar se a conta está bloqueada.
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	// Metodo para verificar se as credenciais do usuário não estão EXPIRADAS. 
+	// Por padrão colocamos true para nunca estarem expiradas, caso contrário deverá ser implementada uma lógica para verificar se as credenciais estão expiradas.
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	// Metodo para verificar se a conta do usuário está HABILITADA. 
+	// Por padrão colocamos true para deixar semprer habilitada, caso contrário deverá ser implementada uma lógica para verificar se a conta está desabilitada.
+	@Override
+	public boolean isEnabled() {
 		return true;
 	}
 
