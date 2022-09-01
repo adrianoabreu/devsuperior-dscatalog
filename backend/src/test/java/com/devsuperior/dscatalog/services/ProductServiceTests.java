@@ -108,7 +108,8 @@ public class ProductServiceTests {
 		PageRequest pageRequest = PageRequest.of(50, 10);
 		
 //		Page<ProductDTO> result = service.findAllPaged(pageable);
-		Page<ProductDTO> result = service.findAllPaged(dependentId, pageRequest);
+//		Page<ProductDTO> result = service.findAllPaged(dependentId, pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(dependentId, null, pageRequest);
 		
 		Assertions.assertNotNull(result);
 		Mockito.verify(repository).findAll(pageRequest);

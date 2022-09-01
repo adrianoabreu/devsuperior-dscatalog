@@ -67,7 +67,8 @@ public class ProductResourceTests {
 		
 		//Configurando comportamentos simulados do objeto service mockado usando Mockito
 //		when(service.findAllPaged(any())).thenReturn(page);
-		when(service.findAllPaged(any(), null)).thenReturn(page);
+//		when(service.findAllPaged(any(), null)).thenReturn(page);
+		when(service.findAllPaged(any(), null, null)).thenReturn(page);
 		
 		when(service.findById(existingId)).thenReturn(productDTO);
 		when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
