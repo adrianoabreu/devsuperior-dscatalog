@@ -42,9 +42,10 @@ public class ProductService {
 //	}
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest){		
+//	public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest){
+	public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable){		
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getById(categoryId));
-		Page<Product> page = repository.find(categories, name, pageRequest);
+		Page<Product> page = repository.find(categories, name, pageable);
 		repository.findProductsWithCategories(page.getContent());
 		return page.map(x -> new ProductDTO(x, x.getCategories()));
 //		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());

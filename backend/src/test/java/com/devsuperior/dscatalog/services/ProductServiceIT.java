@@ -60,7 +60,8 @@ public class ProductServiceIT {
 		
 //		Page<ProductDTO> result = service.findAllPaged(pageRequest);
 //		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, pageRequest);
-		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, null, pageRequest);
+//		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, null, pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(0L, "", pageRequest);
 		
 	
 		Assertions.assertFalse(result.isEmpty());
@@ -76,7 +77,7 @@ public class ProductServiceIT {
 		
 //		Page<ProductDTO> result = service.findAllPaged(pageRequest);
 //		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, pageRequest);
-		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, null, pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(0L, "", pageRequest);
 		
 		
 		Assertions.assertTrue(result.isEmpty());
@@ -89,7 +90,7 @@ public class ProductServiceIT {
 		
 //		Page<ProductDTO> result = service.findAllPaged(pageRequest);
 //		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, pageRequest);
-		Page<ProductDTO> result = service.findAllPaged(countTotalProducts, null, pageRequest);		
+		Page<ProductDTO> result = service.findAllPaged(0L, "", pageRequest);		
 		
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals("Macbook Pro"   ,result.getContent().get(0).getName());

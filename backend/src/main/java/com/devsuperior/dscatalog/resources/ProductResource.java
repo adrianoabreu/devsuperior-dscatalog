@@ -35,16 +35,21 @@ public class ProductResource {
 	@Autowired
 	private ProductService service;
 	
+	//testar com o endpoint: {{host}}/products?page=0&size=12&sort=name,asc
 	//ResponseEntity encapsula respostas HTTP
-//	@GetMapping  //Determina o Endpoint do controlador REST
-//	public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable){		
+	@GetMapping  //Determina o Endpoint do controlador REST
+	public ResponseEntity<Page<ProductDTO>> findAll(
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
+          	@RequestParam(value = "name", defaultValue = "") String name,
+          	Pageable pageable){		
 		
 		//Parametros: page, size, sort
-//		Page<ProductDTO> list = service.findAllPaged(pageable);		
-//		return ResponseEntity.ok().body(list);
-//	}
+		Page<ProductDTO> list = service.findAllPaged(categoryId, name.trim(), pageable);		
+		return ResponseEntity.ok().body(list);
+	}
 	
-	@GetMapping  //Determina o Endpoint do controlador REST
+	//testar com o endpoint: {{host}}/products?page=0&linesPerPage=12&direction=ASC,orderBy=name
+/*	@GetMapping  //Determina o Endpoint do controlador REST
 	public ResponseEntity<Page<ProductDTO>> findAll(
 			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
 			@RequestParam(value = "name", defaultValue = "") String name,
@@ -58,6 +63,7 @@ public class ProductResource {
 		Page<ProductDTO> list = service.findAllPaged(categoryId,name.trim(),pageRequest);		
 		return ResponseEntity.ok().body(list);
 	}
+*/
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProductDTO> findById(@PathVariable Long id){		
