@@ -1,12 +1,19 @@
 import './styles.css';
 
-const ButtonIcon = () => {
+import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
 
-    return (
-        <button className="btn btn-primary btn-icon">
-            <h6>INICIE AGORA A SUA BUSCA</h6>
-        </button>
-    );
-}
+const ButtonIcon = () => {
+  return (
+    <div className="btn-container">
+      <button className="btn btn-primary">
+        <h6>Inicie agora a sua busca</h6>
+      </button>
+
+      <div className="btn-icon-container">
+        <ArrowIcon />
+      </div>
+    </div>
+  );
+};
 
 export default ButtonIcon;
