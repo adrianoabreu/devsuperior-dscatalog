@@ -3,8 +3,21 @@ import ProductPrice from 'components/ProductPrice';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
+import { Product } from 'types/product';
+import axios from 'axios';
+import { BASE_URL } from 'util/requests';
 
 const ProductDetails = () => {
+
+  //FORMA INCORRETA
+  let product : Product;
+
+  //FORMA INCORRETA
+  axios.get(BASE_URL + "/products/2")
+  .then(response => {
+    console.log(response.data)
+  });
+
   return (
     <div className="product-details-container">
       <div className="base-card product-details-card">
