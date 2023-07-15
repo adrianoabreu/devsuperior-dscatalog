@@ -3,6 +3,7 @@ import ButtonIcon from 'components/ButtonIcon';
 import { Link } from 'react-router-dom';
 import './styles.css';
 import {  isAuthenticated } from 'util/requests';
+import TestChildren from 'components/TestChildren';
 
 const Home = () => {
   return (
@@ -10,6 +11,10 @@ const Home = () => {
 
       <h1>{isAuthenticated() ? 'autenticado' : 'Não autenticado'}</h1>
       
+      <TestChildren price={234.56}> 
+        <h2>Conteúdo 1</h2>
+        <h2>Conteúdo 2</h2>
+      </TestChildren>
       <div className="base-card home-card">
         <div className="home-content-container">
           <div>
