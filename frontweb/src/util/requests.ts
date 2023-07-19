@@ -9,16 +9,16 @@ export type TokenData = {
     exp: number;
     user_name: string;
     authorities: Role[];
-}
+};
 
 type LoginResponse = {
     access_token: string;
     token_type: string;
     expires_in: number;
     scope: string;
-    UserId: number;
     userFirstName: string;
-}
+    userId: number;
+};
 
 export const BASE_URL = process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
@@ -108,9 +108,9 @@ export const getTokenData = () : TokenData | undefined => {
     catch(error) {
         return undefined;
     }
-}
+};
 
 export const isAuthenticated = () : boolean => {
-    const tokenData = getTokenData();
-    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
-}
+    let tokenData = getTokenData();
+    return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
+};
