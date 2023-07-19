@@ -129,6 +129,7 @@ export const hasAnyRoles = (roles: Role[]) : boolean => {
           return true;
         }
       }
+      //return roles.some(role => tokenData.authorities.includes(role));
     }
 
     return false;
