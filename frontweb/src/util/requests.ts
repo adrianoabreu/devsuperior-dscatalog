@@ -3,7 +3,7 @@ import qs from 'qs';
 import history from './history';
 import jwtDecode from 'jwt-decode';
 
-type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
 export type TokenData = {
     exp: number;
@@ -91,7 +91,7 @@ axios.interceptors.response.use(function (response) {
   }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    if(error.response.status === 401 || error.response.status === 403) {
+    if(error.response.status === 401) {
         history.push('/admin/auth');
     }
     console.log('INTERCEPTORS RESPOSTA COM ERRO');
