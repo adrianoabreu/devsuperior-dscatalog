@@ -1,4 +1,6 @@
 import ProductCrudCard from "components/ProductCrudCard";
+import './styles.css';
+import { Link } from "react-router-dom";
 
 const List = () => {
 
@@ -18,14 +20,26 @@ const List = () => {
     }
 
     return (
-        <div>
-            <button className="btn btn-primary text-white">ADICIONAR</button>
-            <div>Search bar</div>
-            <ProductCrudCard product={product} />
-            <ProductCrudCard product={product} />
-            <ProductCrudCard product={product} />
+        <>
+        <div className="product-crud-bar-container">
+          <Link to="/admin/products/create">
+            <button className="btn btn-primary text-white btn-crud-add">ADICIONAR</button>
+          </Link>  
+          <div className="base-card product-filter-container">Search bar</div>
         </div>
-    )
-}
+        <div className="row">
+            <div className="col-sm-6 col-md-12">
+              <ProductCrudCard product={product} />
+            </div>
+            <div className="col-sm-6 col-md-12">
+              <ProductCrudCard product={product} />
+            </div>
+            <div className="col-sm-6 col-md-12">
+              <ProductCrudCard product={product} />
+            </div>
+        </div>
+        </>
+    );
+};
 
 export default List;
