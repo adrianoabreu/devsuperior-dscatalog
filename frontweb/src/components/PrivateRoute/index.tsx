@@ -11,6 +11,7 @@ const PrivateRoute = ({ children, path, roles = [] }: Props) => {
   return (
     <Route
       path={path}
+      //@ts-ignore
       render={({location}) =>
         !isAuthenticated() ? (
           <Redirect
@@ -22,7 +23,7 @@ const PrivateRoute = ({ children, path, roles = [] }: Props) => {
         ) : !hasAnyRoles(roles) ? (
           <Redirect to="/admin/products" />
         ) : (
-          <>children</>
+          children
         )
       }
     />
