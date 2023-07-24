@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import './styles.css';
 import { Product } from 'types/product';
 import { requestBackend } from 'util/requests';
@@ -13,9 +13,8 @@ type UrlParams = {
 };
 
 const Form = () => {
-  
   const history = useHistory();
-  
+
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
@@ -26,20 +25,19 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
+    control,
   } = useForm<Product>();
 
   useEffect(() => {
-    requestBackend({url: '/categories'})
-    .then(response => {
+    requestBackend({ url: '/categories' }).then((response) => {
       setSelectCategories(response.data.content);
-    })
+    });
   }, []);
 
   useEffect(() => {
-    if (isEditing){
-      requestBackend({url: `/products/${productId}`})
-      .then((response) => {
+    if (isEditing) {
+      requestBackend({ url: `/products/${productId}` }).then((response) => {
         const product = response.data as Product;
 
         setValue('name', product.name);
@@ -47,7 +45,7 @@ const Form = () => {
         setValue('description', product.description);
         setValue('imgUrl', product.imgUrl);
         setValue('categories', product.categories);
-      })
+      });
     }
   }, [isEditing, productId, setValue]);
 
@@ -100,15 +98,30 @@ const Form = () => {
               </div>
 
               <div className="margin-bottom-30">
-                  <Select
-                  options={selectCategories}
-                  classNamePrefix="product-crud-select"
-                  isMulti
-                  getOptionLabel={(category: Category) => category.name}
-                  getOptionValue={(category: Category) => String(category.id)}
-                  />
+                <Controller
+                  name="categories"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    //@ts-ignore
+                    <Select
+                      {...field}
+                      options={selectCategories}
+                      classNamePrefix="product-crud-select"
+                      isMulti
+                      getOptionLabel={(category: Category) => category.name}
+                      getOptionValue={(category: Category) =>
+                        String(category.id)
+                      }
+                    />
+                  )}
+                />
+                {errors.categories && (
+                  <div className="invalid-feedback d-block">
+                    Campo Obrigatório
+                  </div>
+                )}
               </div>
-
 
               <div className="margin-bottom-30">
                 <input
