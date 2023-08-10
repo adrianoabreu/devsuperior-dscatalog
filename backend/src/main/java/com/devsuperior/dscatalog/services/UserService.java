@@ -77,8 +77,8 @@ public class UserService  implements UserDetailsService{
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
-//			User entity = repository.getOne(id);  //metodo deprecated
-			User entity = repository.getById(id);
+			User entity = repository.getOne(id);  //metodo deprecated
+//			User entity = repository.getById(id);
 			copyDtoToEntity(dto,entity);
 			entity = repository.save(entity);
 			return new UserDTO(entity);
@@ -106,7 +106,8 @@ public class UserService  implements UserDetailsService{
 		
 		entity.getRoles().clear();
 		for(RoleDTO roleDto : dto.getRoles()) {
-			Role role = roleRepository.getById(roleDto.getId());
+			Role role = roleRepository.getOne(roleDto.getId());
+//			Role role = roleRepository.getById(roleDto.getId());
 			entity.getRoles().add(role);
 		}
 	}
